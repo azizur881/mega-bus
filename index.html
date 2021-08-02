@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <script src="https://kit.fontawesome.com/bf47a2857c.js" crossorigin="anonymous"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id ='first-class-input' style="background-color: rgb(248, 196, 117);text-align: center; font-weight:800;"class="inp-style inp-width" type="text" value="0" name="">
+                </div>
+                
+                <div class="plus-minus-btn">
+                    <i style="cursor: pointer;"onclick="getAmount(true,'first')" class="fas fa-plus "></i>
+                    
+                    <i style="cursor: pointer;" onclick="getAmount(false,'first')" class="fas fa-minus"></i>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id = 'second-class-input' style="background-color: rgb(248, 196, 117);text-align: center;font-weight: 800;"; class="inp-style inp-width" type="text" name=""value='0'>
+                    </div>
+                    <div class="plus-minus-btn">
+                        <i style="cursor: pointer;" onclick="getAmount(true,'second')"   class="fas fa-plus"></i> 
+                         <i style="cursor: pointer;" onclick="getAmount(false,'second')" class="fas fa-minus"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <h3 id='sub-total'>$00</h3>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <h3 id="vat">$0</h3>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <h3 id='total'>$00</h3>
+                    </div>
+                </div>
+            </div>
+            <button onclick="bookNow()" class="btn-style">Book Now</button>
+        </div>
+        <div id="book-now">
+            <p>Your Seat is Booked</p>
+            <h3 style="display:inline-block"  >Total Seat = </h3> <h3 id='total-seat' style="display:inline-block;">00</h3>
+            
+            <br>
+            <h3 style="display:inline-block" >Total Bill = </h3> <h3 id='total-bill' style="display:inline-block">00</h3>
+        </div>
+    </main>
+
+    <!--Thank You-->
+
+    <script>
+        function getAmount(pressUp,input){
+          const inputValue =  document.getElementById(input+'-class-input').value
+            const inputNumber = parseInt(inputValue)
+            
+            if(pressUp == true){
+                let totalNumber = inputNumber + 1
+                document.getElementById(input + "-class-input").value =totalNumber
+            }
+            if(pressUp == false && inputNumber > 0){
+                let totalNumber = (inputNumber - 1) 
+                document.getElementById(input+"-class-input").value =totalNumber  
+            }
+             getSub()
+          
+        }
+        function getSub(){
+                const firstClass =document.getElementById('first-class-input').value
+                const firstPrice = parseInt(firstClass)
+
+                const secondClass =document.getElementById('second-class-input').value
+                const secondPrice = parseInt(secondClass)
+                const totalSub = firstPrice * 150 + secondPrice * 100;
+
+        
+           document.getElementById("sub-total").innerText = '$' + totalSub
+          const vat= document.getElementById('vat').innerText
+          const vatNumber=parseInt(vat)
+           const vatTotal=(totalSub*.10)
+           document.getElementById('vat').innerText=vatTotal
+
+
+
+            // const vat = document.getElementById('vat').innerText
+            
+            document.getElementById('total').innerText='$'+(vatTotal + totalSub)
+
+            }
+            function bookNow(){
+                
+               const input= document.getElementById('first-class-input').value
+                const inputNumber = parseInt(input)
+               const input2 = document.getElementById('second-class-input').value
+               const input2Number = parseInt(input2)
+               document.getElementById('total-seat').innerText = inputNumber+input2Number
+              
+              
+               const total = document.getElementById('total').innerText
+            //    const totalNumber = parseInt(total)
+               document.getElementById('total-bill').innerText = total
+                document.getElementById('book-now').style.display="block";
+              
+                
+                
+            }
+    </script>
+</body>
+
+</html>
